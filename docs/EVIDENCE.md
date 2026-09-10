@@ -88,17 +88,52 @@ Pulling `student-ml-api:1.0.0` from the registry restores a known-good runtime *
 | **Evidence** | `docker ps` PORTS column; `docker inspect` PortBindings |
 | **Correction** | Use `-p 5000:5000` matching `EXPOSE 5000` / CMD bind |
 
-## Traceability template (Part 21)
-
-Fill with live values after v1.1.0 release:
+## Traceability chain for 1.1.0 (Part 21)
 
 ```
-PR:                 #<number>
-Merge Commit:       <sha>
+PR:                 #2
+Merge Commit:       cfec48ff3094a77125818bda5440b80653068820
 Git Tag:            v1.1.0
-Docker Image:       ghcr.io/<username>/student-ml-api:1.1.0
-Image Digest:       sha256:<digest>
+Docker Image:       ghcr.io/ahyanalikhan/student-ml-api:1.1.0
+Image Digest:       sha256:f5ff37e096ae040ab189abc1e0bb0b1b69be02fa2aeea2521ff64532817c3310
+Commit-SHA tag:     ghcr.io/ahyanalikhan/student-ml-api:cfec48f
 ```
+
+### Also recorded for 1.0.0
+
+```
+PR:                 #1
+Merge Commit:       1a95b76c88cdac7096c57716996ea2e15afa8785
+Git Tag:            v1.0.0
+Docker Image:       ghcr.io/ahyanalikhan/student-ml-api:1.0.0
+Image Digest:       sha256:5e67f2797400014ec100018237e02c155dc462c1994ea8e7a3692ae282553277
+```
+
+### CI evidence links
+
+| Event | Result | Run |
+|---|---|---|
+| Deliberate pytest failure | FAILED | https://github.com/AhyanAliKhan/student-ml-api/actions/runs/34470891785 |
+| Health test fix | SUCCESS | https://github.com/AhyanAliKhan/student-ml-api/actions/runs/34470989217 |
+| Release v1.0.0 | SUCCESS | https://github.com/AhyanAliKhan/student-ml-api/actions/runs/34471228152 |
+| Release v1.1.0 | SUCCESS | https://github.com/AhyanAliKhan/student-ml-api/actions/runs/34471578296 |
+
+### Repository / PRs
+
+- Repo: https://github.com/AhyanAliKhan/student-ml-api
+- PR #1: https://github.com/AhyanAliKhan/student-ml-api/pull/1
+- PR #2: https://github.com/AhyanAliKhan/student-ml-api/pull/2
+- Package: `ghcr.io/ahyanalikhan/student-ml-api` tags `1.0.0`, `1.1.0`, `latest`, `cfec48f`
+
+### Docker inspection (Part 11) — sample from local run
+
+| Field | Value |
+|---|---|
+| Container ID | `ab65eb55157f…` (varies per run) |
+| Image ID | `sha256:c97171c1283a…` (local build) / registry digests above |
+| Exposed port | `5000/tcp` → host `5000` |
+| Running command | `gunicorn --bind 0.0.0.0:5000 app:app` |
+| Working directory | `/app` |
 
 ## Local Docker inspection checklist (Part 11)
 
