@@ -135,6 +135,15 @@ Image Digest:       sha256:5e67f2797400014ec100018237e02c155dc462c1994ea8e7a3692
 | Running command | `gunicorn --bind 0.0.0.0:5000 app:app` |
 | Working directory | `/app` |
 
+## Docker layer cache observations (Part 25)
+
+| Change | `COPY requirements.txt` / `pip install` | `COPY app.py` |
+|---|---|---|
+| Only `app.py` modified | **CACHED** | Rebuilt |
+| `requirements.txt` modified | **Rebuilt** (~12s pip) | Rebuilt |
+
+This is why dependency install is ordered before copying application source.
+
 ## Local Docker inspection checklist (Part 11)
 
 ```bash
@@ -150,7 +159,7 @@ Record: Container ID, Image ID, Exposed port, Running command, Working directory
 ## Registry verification (Part 16)
 
 ```bash
-docker pull ghcr.io/<username>/student-ml-api:1.0.0
-docker pull ghcr.io/<username>/student-ml-api:latest
-docker images --digests | findstr student-ml-api
+docker pull ghcr.io/ahyanalikhan/student-ml-api:1.0.0
+docker pull ghcr.io/ahyanalikhan/student-ml-api:latest
+docker images --digests
 ```
