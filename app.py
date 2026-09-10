@@ -7,7 +7,7 @@ from flask import Flask, jsonify, request
 app = Flask(__name__)
 
 APPLICATION_NAME = "student-ml-api"
-MODEL_VERSION = "model-0"
+MODEL_VERSION = "model-1"
 
 
 def get_version() -> str:
@@ -22,7 +22,8 @@ def health():
         {
             "status": "healthy",
             "application": APPLICATION_NAME,
-            "version": get_version(),
+            "application_version": get_version(),
+            "model_version": MODEL_VERSION,
         }
     )
 
